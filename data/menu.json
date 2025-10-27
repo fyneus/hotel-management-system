@@ -1,0 +1,76 @@
+{
+  "menuItems": [
+    {
+      "id": 1,
+      "name": "Classic Burger",
+      "description": "Juicy beef patty with fresh vegetables and special sauce",
+      "price": 16.99,
+      "category": "main-course",
+      "image": "burger.jpg",
+      "available": true
+    },
+    {
+      "id": 2,
+      "name": "Caesar Salad",
+      "description": "Fresh romaine lettuce with Caesar dressing and croutons",
+      "price": 12.99,
+      "category": "appetizers",
+      "image": "caesar-salad.jpg",
+      "available": true
+    },
+    {
+      "id": 3,
+      "name": "Chocolate Lava Cake",
+      "description": "Warm chocolate cake with molten center and vanilla ice cream",
+      "price": 8.99,
+      "category": "desserts",
+      "image": "lava-cake.jpg",
+      "available": true
+    },
+    {
+      "id": 4,
+      "name": "Fresh Orange Juice",
+      "description": "Freshly squeezed orange juice",
+      "price": 5.99,
+      "category": "beverages",
+      "image": "orange-juice.jpg",
+      "available": true
+    },
+    {
+      "id": 5,
+      "name": "Grilled Salmon",
+      "description": "Atlantic salmon with lemon butter sauce and vegetables",
+      "price": 24.99,
+      "category": "main-course",
+      "image": "salmon.jpg",
+      "available": true
+    },
+    {
+      "id": 6,
+      "name": "Mozzarella Sticks",
+      "description": "Breaded mozzarella cheese sticks with marinara sauce",
+      "price": 9.99,
+      "category": "appetizers",
+      "image": "mozzarella-sticks.jpg",
+      "available": true
+    },
+    {
+      "id": 7,
+      "name": "Tiramisu",
+      "description": "Classic Italian dessert with coffee-soaked ladyfingers",
+      "price": 7.99,
+      "category": "desserts",
+      "image": "tiramisu.jpg",
+      "available": true
+    },
+    {
+      "id": 8,
+      "name": "Cappuccino",
+      "description": "Freshly brewed coffee with steamed milk foam",
+      "price": 4.99,
+      "category": "beverages",
+      "image": "cappuccino.jpg",
+      "available": true
+    }
+  ]
+}

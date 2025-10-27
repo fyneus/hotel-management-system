@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Management System</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/tv-interface.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- TV Interface -->
+    <div class="tv-interface">
+        <!-- Header -->
+        <header class="tv-header">
+            <div class="room-info">
+                <span class="room-number">Room 101</span>
+                <span class="guest-name">Welcome, John Doe</span>
+            </div>
+            <div class="header-controls">
+                <button class="btn-help"><i class="fas fa-question-circle"></i> Help</button>
+                <button class="btn-bill"><i class="fas fa-receipt"></i> Bill</button>
+            </div>
+        </header>
+
+        <!-- Main Navigation -->
+        <nav class="main-nav">
+            <div class="nav-item active" data-target="dashboard">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </div>
+            <div class="nav-item" data-target="food-menu">
+                <i class="fas fa-utensils"></i>
+                <span>Food & Beverage</span>
+            </div>
+            <div class="nav-item" data-target="services">
+                <i class="fas fa-concierge-bell"></i>
+                <span>Services</span>
+            </div>
+            <div class="nav-item" data-target="orders">
+                <i class="fas fa-clipboard-list"></i>
+                <span>My Orders</span>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard -->
+            <section id="dashboard" class="content-section active">
+                <div class="dashboard-grid">
+                    <div class="dashboard-card" onclick="showSection('food-menu')">
+                        <i class="fas fa-utensils"></i>
+                        <h3>Order Food</h3>
+                        <p>Browse our restaurant menu</p>
+                    </div>
+                    <div class="dashboard-card" onclick="showSection('services')">
+                        <i class="fas fa-concierge-bell"></i>
+                        <h3>Room Service</h3>
+                        <p>Request housekeeping</p>
+                    </div>
+                    <div class="dashboard-card" onclick="showOrders()">
+                        <i class="fas fa-clipboard-list"></i>
+                        <h3>My Orders</h3>
+                        <p>View order history</p>
+                    </div>
+                    <div class="dashboard-card">
+                        <i class="fas fa-spa"></i>
+                        <h3>Spa & Wellness</h3>
+                        <p>Book treatments</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Food Menu -->
+            <section id="food-menu" class="content-section">
+                <div class="section-header">
+                    <h2>Food & Beverage Menu</h2>
+                    <div class="cart-summary">
+                        <span id="cart-count">0 items</span>
+                        <button class="btn-view-cart" onclick="showCart()">
+                            <i class="fas fa-shopping-cart"></i>
+                            View Cart
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="category-tabs">
+                    <button class="category-tab active" data-category="all">All</button>
+                    <button class="category-tab" data-category="appetizers">Appetizers</button>
+                    <button class="category-tab" data-category="main-course">Main Course</button>
+                    <button class="category-tab" data-category="desserts">Desserts</button>
+                    <button class="category-tab" data-category="beverages">Beverages</button>
+                </div>
+
+                <div class="menu-grid" id="menu-grid">
+                    <!-- Menu items will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Services -->
+            <section id="services" class="content-section">
+                <h2>Hotel Services</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <i class="fas fa-bed"></i>
+                        <h3>Housekeeping</h3>
+                        <p>Room cleaning and turndown service</p>
+                        <button class="btn-service" data-service="housekeeping">Request</button>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-t-shirt"></i>
+                        <h3>Laundry</h3>
+                        <p>Same-day laundry service</p>
+                        <button class="btn-service" data-service="laundry">Request</button>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-car"></i>
+                        <h3>Transportation</h3>
+                        <p>Taxi and airport transfer</p>
+                        <button class="btn-service" data-service="transportation">Request</button>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-spa"></i>
+                        <h3>Spa Booking</h3>
+                        <p>Massage and wellness treatments</p>
+                        <button class="btn-service" data-service="spa">Book Now</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Orders -->
+            <section id="orders" class="content-section">
+                <h2>My Orders</h2>
+                <div class="orders-list" id="orders-list">
+                    <!-- Orders will be loaded here -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Shopping Cart Modal -->
+        <div id="cart-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Shopping Cart</h3>
+                    <span class="close">&times;</span>
+                </div>
+                <div class="cart-items" id="cart-items">
+                    <!-- Cart items will be loaded here -->
+                </div>
+                <div class="cart-total">
+                    <strong>Total: $<span id="cart-total">0.00</span></strong>
+                </div>
+                <div class="cart-actions">
+                    <button class="btn-clear" onclick="clearCart()">Clear Cart</button>
+                    <button class="btn-order" onclick="placeOrder()">Place Order</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Confirmation Modal -->
+        <div id="order-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Order Confirmation</h3>
+                </div>
+                <div class="order-success">
+                    <i class="fas fa-check-circle"></i>
+                    <p>Your order has been placed successfully!</p>
+                    <p>Order ID: <span id="order-id">#12345</span></p>
+                    <p>Estimated delivery: <span id="delivery-time">30 minutes</span></p>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn-ok" onclick="closeOrderModal()">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/orders.js"></script>
+</body>
+</html>

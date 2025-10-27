@@ -1,0 +1,42 @@
+/* TV-specific styles for remote control navigation */
+.tv-interface {
+    font-size: 18px; /* Larger text for TV viewing */
+}
+
+/* Focus states for remote navigation */
+.nav-item:focus,
+.menu-item:focus,
+.dashboard-card:focus,
+.service-card:focus,
+.btn-service:focus,
+.category-tab:focus,
+.btn-view-cart:focus {
+    outline: 3px solid #ffd700;
+    outline-offset: 2px;
+    transform: scale(1.05);
+}
+
+/* Smooth animations */
+.menu-item,
+.dashboard-card,
+.service-card {
+    transition: all 0.3s ease;
+}
+
+/* Scrollbar styling for TV */
+.main-content::-webkit-scrollbar {
+    width: 12px;
+}
+
+.main-content::-webkit-scrollbar-track {
+    background: #333;
+}
+
+.main-content::-webkit-scrollbar-thumb {
+    background: #ffd700;
+    border-radius: 6px;
+}
+
+.main-content::-webkit-scrollbar-thumb:hover {
+    background: #ffed4e;
+}

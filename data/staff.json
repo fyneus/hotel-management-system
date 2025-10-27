@@ -1,0 +1,44 @@
+{
+  "departments": [
+    {
+      "id": "front-desk",
+      "name": "Front Desk",
+      "permissions": ["view_orders", "update_orders", "view_inventory", "manage_rooms", "manage_guests"]
+    },
+    {
+      "id": "kitchen",
+      "name": "Kitchen",
+      "permissions": ["view_orders", "update_orders", "view_inventory"]
+    },
+    {
+      "id": "housekeeping",
+      "name": "Housekeeping",
+      "permissions": ["view_inventory", "manage_rooms"]
+    },
+    {
+      "id": "management",
+      "name": "Management",
+      "permissions": ["all"]
+    }
+  ],
+  "users": [
+    {
+      "username": "frontdesk",
+      "password": "123",
+      "department": "front-desk",
+      "name": "Front Desk Staff"
+    },
+    {
+      "username": "kitchen",
+      "password": "123",
+      "department": "kitchen",
+      "name": "Kitchen Staff"
+    },
+    {
+      "username": "admin",
+      "password": "123",
+      "department": "management",
+      "name": "System Administrator"
+    }
+  ]
+}

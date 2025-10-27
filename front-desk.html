@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Front Desk Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/front-desk.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen" class="login-screen">
+        <div class="login-container">
+            <div class="login-header">
+                <h1>Hotel Management System</h1>
+                <p>Staff Login</p>
+            </div>
+            <form id="login-form" class="login-form">
+                <div class="form-group">
+                    <label for="department">Department</label>
+                    <select id="department" name="department" required>
+                        <option value="">Select Department</option>
+                        <option value="front-desk">Front Desk</option>
+                        <option value="kitchen">Kitchen</option>
+                        <option value="housekeeping">Housekeeping</option>
+                        <option value="management">Management</option>
+                        <option value="inventory">Inventory</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn-login">Login</button>
+            </form>
+            <div class="demo-accounts">
+                <h3>Demo Accounts:</h3>
+                <p><strong>Front Desk:</strong> user: frontdesk, pass: 123</p>
+                <p><strong>Kitchen:</strong> user: kitchen, pass: 123</p>
+                <p><strong>Management:</strong> user: admin, pass: 123</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div id="dashboard" class="dashboard hidden">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <h1>Front Desk Dashboard</h1>
+                <div class="user-info">
+                    <span id="current-user">Welcome, User</span>
+                    <span id="current-department">Department</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="notifications">
+                    <button class="btn-notification" id="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count" id="notification-count">0</span>
+                    </button>
+                </div>
+                <button class="btn-logout" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="dashboard-nav">
+            <div class="nav-item active" data-tab="overview">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Overview</span>
+            </div>
+            <div class="nav-item" data-tab="orders">
+                <i class="fas fa-clipboard-list"></i>
+                <span>Orders</span>
+                <span class="badge" id="orders-badge">0</span>
+            </div>
+            <div class="nav-item" data-tab="inventory">
+                <i class="fas fa-boxes"></i>
+                <span>Inventory</span>
+                <span class="badge" id="inventory-badge">0</span>
+            </div>
+            <div class="nav-item" data-tab="rooms">
+                <i class="fas fa-bed"></i>
+                <span>Rooms</span>
+            </div>
+            <div class="nav-item" data-tab="guests">
+                <i class="fas fa-users"></i>
+                <span>Guests</span>
+            </div>
+            <div class="nav-item" data-tab="reports" id="reports-tab">
+                <i class="fas fa-chart-bar"></i>
+                <span>Reports</span>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="dashboard-content">
+            <!-- Overview Tab -->
+            <section id="overview" class="tab-content active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="pending-orders">0</h3>
+                            <p>Pending Orders</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-bed"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="occupied-rooms">0</h3>
+                            <p>Occupied Rooms</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="low-stock-items">0</h3>
+                            <p>Low Stock Items</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-concierge-bell"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="service-requests">0</h3>
+                            <p>Service Requests</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="overview-grid">
+                    <!-- Recent Orders -->
+                    <div class="overview-card">
+                        <div class="card-header">
+                            <h3>Recent Orders</h3>
+                            <button class="btn-view-all" onclick="showTab('orders')">View All</button>
+                        </div>
+                        <div class="card-content">
+                            <div id="recent-orders-list">
+                                <!-- Recent orders will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Room Status -->
+                    <div class="overview-card">
+                        <div class="card-header">
+                            <h3>Room Status</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="room-status-grid" id="room-status-grid">
+                                <!-- Room status will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Low Stock Alerts -->
+                    <div class="overview-card">
+                        <div class="card-header">
+                            <h3>Low Stock Alerts</h3>
+                            <button class="btn-view-all" onclick="showTab('inventory')">View All</button>
+                        </div>
+                        <div class="card-content">
+                            <div id="low-stock-list">
+                                <!-- Low stock items will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Service Requests -->
+                    <div class="overview-card">
+                        <div class="card-header">
+                            <h3>Service Requests</h3>
+                        </div>
+                        <div class="card-content">
+                            <div id="service-requests-list">
+                                <!-- Service requests will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Orders Tab -->
+            <section id="orders" class="tab-content">
+                <div class="tab-header">
+                    <h2>Order Management</h2>
+                    <div class="filter-controls">
+                        <select id="order-filter">
+                            <option value="all">All Orders</option>
+                            <option value="pending">Pending</option>
+                            <option value="preparing">Preparing</option>
+                            <option value="ready">Ready for Delivery</option>
+                            <option value="delivered">Delivered</option>
+                        </select>
+                        <select id="order-type-filter">
+                            <option value="all">All Types</option>
+                            <option value="food">Food & Beverage</option>
+                            <option value="service">Services</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="orders-management" id="orders-management">
+                    <!-- Orders will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Inventory Tab -->
+            <section id="inventory" class="tab-content">
+                <div class="tab-header">
+                    <h2>Inventory Management</h2>
+                    <div class="inventory-actions">
+                        <button class="btn-primary" onclick="showAddItemModal()">
+                            <i class="fas fa-plus"></i> Add Item
+                        </button>
+                        <button class="btn-secondary" onclick="generatePurchaseOrders()">
+                            <i class="fas fa-file-invoice"></i> Generate POs
+                        </button>
+                    </div>
+                </div>
+                <div class="inventory-grid" id="inventory-grid">
+                    <!-- Inventory items will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Rooms Tab -->
+            <section id="rooms" class="tab-content">
+                <div class="tab-header">
+                    <h2>Room Management</h2>
+                    <button class="btn-primary" onclick="showAddRoomModal()">
+                        <i class="fas fa-plus"></i> Add Room
+                    </button>
+                </div>
+                <div class="rooms-grid" id="rooms-grid">
+                    <!-- Rooms will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Guests Tab -->
+            <section id="guests" class="tab-content">
+                <div class="tab-header">
+                    <h2>Guest Management</h2>
+                    <button class="btn-primary" onclick="showCheckInModal()">
+                        <i class="fas fa-user-plus"></i> Check-in Guest
+                    </button>
+                </div>
+                <div class="guests-list" id="guests-list">
+                    <!-- Guests will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Reports Tab -->
+            <section id="reports" class="tab-content">
+                <div class="tab-header">
+                    <h2>Reports & Analytics</h2>
+                    <div class="report-controls">
+                        <select id="report-period">
+                            <option value="today">Today</option>
+                            <option value="week">This Week</option>
+                            <option value="month">This Month</option>
+                        </select>
+                        <button class="btn-primary" onclick="generateReport()">
+                            <i class="fas fa-download"></i> Export Report
+                        </button>
+                    </div>
+                </div>
+                <div class="reports-grid">
+                    <div class="report-card">
+                        <h3>Revenue Summary</h3>
+                        <div class="chart-placeholder">
+                            <canvas id="revenue-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="report-card">
+                        <h3>Popular Items</h3>
+                        <div class="chart-placeholder">
+                            <canvas id="popular-items-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="report-card">
+                        <h3>Order Statistics</h3>
+                        <div id="order-stats">
+                            <!-- Order stats will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <!-- Order Details Modal -->
+    <div id="order-modal" class="modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3>Order Details</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body" id="order-details">
+                <!-- Order details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Inventory Item Modal -->
+    <div id="add-item-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Inventory Item</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="add-item-form">
+                    <div class="form-group">
+                        <label for="item-name">Item Name</label>
+                        <input type="text" id="item-name" name="item-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="item-category">Category</label>
+                        <select id="item-category" name="item-category" required>
+                            <option value="">Select Category</option>
+                            <option value="food">Food</option>
+                            <option value="beverage">Beverage</option>
+                            <option value="cleaning">Cleaning Supplies</option>
+                            <option value="amenities">Room Amenities</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="current-stock">Current Stock</label>
+                        <input type="number" id="current-stock" name="current-stock" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="min-stock">Minimum Stock</label>
+                        <input type="number" id="min-stock" name="min-stock" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="unit">Unit</label>
+                        <input type="text" id="unit" name="unit" placeholder="kg, liters, pieces..." required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="closeModal('add-item-modal')">Cancel</button>
+                        <button type="submit" class="btn-primary">Add Item</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Panel -->
+    <div id="notification-panel" class="notification-panel hidden">
+        <div class="notification-header">
+            <h3>Notifications</h3>
+            <button class="btn-clear" onclick="clearNotifications()">Clear All</button>
+        </div>
+        <div class="notification-list" id="notification-list">
+            <!-- Notifications will be loaded here -->
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/front-desk.js"></script>
+    <script src="js/inventory.js"></script>
+    <script src="js/staff.js"></script>
+</body>
+</html>
